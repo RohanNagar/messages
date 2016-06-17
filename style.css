@@ -13,3 +13,13 @@ body {
 .form-control {
   min-height: 40px;
 }
+
+#startDatePicker {
+  margin: auto;
+  max-width: 250px;
+}
+
+#endDatePicker {
+  margin: auto;
+  max-width: 250px;
+}
