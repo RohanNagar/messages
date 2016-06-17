@@ -30,6 +30,16 @@ $textfield.keyup(function(e){
     }
 });
 
+$('#startDatePicker').datepicker({
+    autoclose: true,
+    format: 'mm/dd/yyyy'
+});
+
+$('#endDatePicker').datepicker({
+    autoclose: true,
+    format: 'mm/dd/yyyy'
+});
+
 function messageContains(message, phrase) {
     return message.indexOf(phrase) > -1;
 }
@@ -37,8 +47,22 @@ function messageContains(message, phrase) {
 function displayMessages() {
     console.log($textfield.val());
 
+    var startTime = new Date($('#startDatePicker').datepicker('getFormattedDate')).getTime();
+    var endTime = new Date($('#endDatePicker').datepicker('getFormattedDate')).getTime();
+    console.log(startTime + " " + endTime);
+
     var displayMessages = []
     for (var i = 0; i < allMessages.length; i++) {
+        message = allMessages[i]; 
+        
+        if (message.timestamp < startTime) {
+            continue;
+        }
+
+        if (message.timestamp > endTime) {
+            break;
+        }
+        
         if (messageContains(allMessages[i].text, $textfield.val())) {
             displayMessages.push(allMessages[i]);
         }
