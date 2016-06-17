@@ -20,6 +20,16 @@ $(function () {
     });
 });
 
+$textfield.bind("enterKey",function(e){
+    displayMessages();
+});
+
+$textfield.keyup(function(e){
+    if(e.keyCode == 13) {
+       $(this).trigger("enterKey");
+    }
+});
+
 function messageContains(message, phrase) {
     return message.indexOf(phrase) > -1;
 }
