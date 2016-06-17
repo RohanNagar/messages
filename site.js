@@ -1,6 +1,8 @@
 $submit_button = $('#submit')
 $result_table = $('#table')
 $textfield = $('#search-box')
+$start_date_picker = $('#startDatePicker')
+$end_date_picker = $('#endDatePicker')
 
 allMessages = null
 
@@ -20,6 +22,7 @@ $(function () {
     });
 });
 
+// Bind enter key on textfield to perform search
 $textfield.bind("enterKey",function(e){
     displayMessages();
 });
@@ -30,25 +33,28 @@ $textfield.keyup(function(e){
     }
 });
 
-$('#startDatePicker').datepicker({
+// Settings for datepickers
+$start_date_picker.datepicker({
     autoclose: true,
     format: 'mm/dd/yyyy'
 });
 
-$('#endDatePicker').datepicker({
+$end_date_picker.datepicker({
     autoclose: true,
     format: 'mm/dd/yyyy'
 });
 
+// Determines if a phrase exists in the given message
 function messageContains(message, phrase) {
     return message.indexOf(phrase) > -1;
 }
 
+// Iterates through messages list and updates the table accordingly
 function displayMessages() {
     console.log($textfield.val());
 
-    var startTime = new Date($('#startDatePicker').datepicker('getFormattedDate')).getTime();
-    var endTime = new Date($('#endDatePicker').datepicker('getFormattedDate')).getTime();
+    var startTime = new Date($start_date_picker.datepicker('getFormattedDate')).getTime();
+    var endTime = new Date($end_date_picker.datepicker('getFormattedDate')).getTime();
     console.log(startTime + " " + endTime);
 
     var displayMessages = []
