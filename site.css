@@ -1,0 +1,16 @@
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
+.jumbotron {
+  text-align: center;
+}
+
+.jumbotron img {
+  padding-bottom: 20px;
+}
+
+.form-control {
+  min-height: 40px;
+}
