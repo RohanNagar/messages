@@ -44,6 +44,21 @@ $end_date_picker.datepicker({
     format: 'mm/dd/yyyy'
 });
 
+$result_table.bootstrapTable({
+    columns: [{
+        field: 'date',
+        title: 'Date'
+    }, {
+        field: 'name',
+        title: 'Sender'
+    }, {
+        field: 'text',
+        title: 'Message'
+    }],
+    data: []
+});
+
+
 // Determines if a phrase exists in the given message
 function messageContains(message, phrase) {
     return message.indexOf(phrase) > -1;
@@ -51,11 +66,8 @@ function messageContains(message, phrase) {
 
 // Iterates through messages list and updates the table accordingly
 function displayMessages() {
-    console.log($textfield.val());
-
     var startTime = new Date($start_date_picker.datepicker('getFormattedDate')).getTime();
     var endTime = new Date($end_date_picker.datepicker('getFormattedDate')).getTime();
-    console.log(startTime + " " + endTime);
 
     var displayMessages = []
     for (var i = 0; i < allMessages.length; i++) {
@@ -68,26 +80,12 @@ function displayMessages() {
         if (message.timestamp > endTime) {
             break;
         }
-        
-        if (messageContains(allMessages[i].text, $textfield.val())) {
-            displayMessages.push(allMessages[i]);
+
+        if (messageContains(message.text, $textfield.val())) {
+            displayMessages.push(message);
         }
     }
-    console.log(displayMessages);
 
-    $result_table.bootstrapTable({
-    	columns: [{
-            field: 'date',
-            title: 'Date'
-    	}, {
-            field: 'name',
-            title: 'Sender'
-    	}, {
-            field: 'text',
-            title: 'Message'
-    	}],
-    	data: displayMessages
-    });
 
     $result_table.bootstrapTable("load", displayMessages)
 }
