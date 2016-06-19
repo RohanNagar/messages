@@ -2,25 +2,36 @@ import json
 import datetime
 
 # Constants
-path = 'Messages/609628589/complete.json'
+path = 'raw_messages.json'
 first_author_id = 'fbid:609628589'
 first_author_name = 'Stephanie Tran'
 second_author_id = 'fbid:1399342159'
 second_author_name = 'Rohan Nagar'
 
 
-# Retrieves the link to any attachments for each message
+# Get the appropriate URL of the attachment
+def get_url_from_attachment(attachment):
+    if attachment['url'] is None:
+        return attachment['share']['uri']
+    elif '/ajax/' in attachment['url']:
+        return attachment['hires_url']
+    else:
+        return attachment['url']
+
+
+# Parses any attachments for each message
 def get_attachments(message):
+    result = []
     if 'attachments' in message and len(message['attachments']) != 0:
         for attachment in message['attachments']:
-            if attachment['url'] is None:
-                return attachment['share']['uri']
-            elif '/ajax/' in attachment['url']:
-                return attachment['hires_url']
-            else:
-                return attachment['url']
-    else:
-        return None
+            atchmnt = {
+                'type': attachment['attach_type'],
+                'url': get_url_from_attachment(attachment)
+            }
+
+            result.append(atchmnt)
+    
+    return result
 
 
 # Loads all messages from a JSON file given in filename.
@@ -40,14 +51,21 @@ def get_all_messages(filename=path):
                 'name': first_author_name if message['author'] == first_author_id else second_author_name,
                 'timestamp': message['timestamp'],
                 'date': datetime.datetime.fromtimestamp(float(message['timestamp'] / 1000)).strftime('%B %d, %Y %-I:%M %p'),
-                'link': get_attachments(message)
+                'attachments': get_attachments(message)
             }
 
-            if msg['text'] == '' and msg['link'] is not None:
-                if msg['link'].endswith('.png'):
-                    msg['text'] = '<img src=' + msg['link'] + ' width="50" height="50">'
-                else:
-                    msg['text'] = '<a href=' + msg['link'] + '>Link to Attachment (May be Expired)</a>'
+            for attachment in msg['attachments']:
+                if attachment['type'] == 'sticker':
+                    msg['text'] = '<img src=' + attachment['url'] + ' width="50" height="50">'
+                elif attachment['type'] == 'file':
+                    msg['text'] = 'Audio Message'
+                elif attachment['type'] == 'photo':
+                    msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + '>Link to Attached Photo (May be Expired)</a>'
+                elif attachment['type'] == 'share':
+                    if attachment['url'] is None:
+                        msg['text'] = msg['text'] + ' Unavailable Attachment'
+                    else:
+                        msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + '>Attached Link</a>'
 
             result.append(msg)
 
