@@ -23,12 +23,12 @@ $(function () {
 });
 
 // Bind enter key on textfield to perform search
-$textfield.bind("enterKey",function(e){
+$textfield.bind("enterKey", function(e) {
     displayMessages();
 });
 
-$textfield.keyup(function(e){
-    if(e.keyCode == 13) {
+$textfield.keyup(function(e) {
+    if (e.keyCode == 13) {
        $(this).trigger("enterKey");
     }
 });
@@ -44,6 +44,7 @@ $end_date_picker.datepicker({
     format: 'mm/dd/yyyy'
 });
 
+// Initalize table
 $result_table.bootstrapTable({
     columns: [{
         field: 'date',

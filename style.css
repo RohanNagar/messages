@@ -14,17 +14,12 @@ body {
   min-height: 40px;
 }
 
-#startDatePicker {
-  margin: auto;
-  max-width: 250px;
-}
-
-#endDatePicker {
+.date-picker {
   margin: auto;
   max-width: 250px;
 }
 
 .end {
-    margin-top:50px;
+  margin-top:50px;
 }
 

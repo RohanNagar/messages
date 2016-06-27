@@ -61,16 +61,16 @@ def get_all_messages(filename=path):
                 elif attachment['type'] == 'file':
                     msg['text'] = 'Audio Message'
                 elif attachment['type'] == 'photo':
-                    msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + '>Link to Attached Photo (May be Expired)</a>'
+                    msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + ' target="_blank">Link to Attached Photo (May be Expired)</a>'
                 elif attachment['type'] == 'animated_image':
-                    msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + '>Link to Attached GIF (May be Expired)</a>'
+                    msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + ' target="_blank">Link to Attached GIF (May be Expired)</a>'
                 elif attachment['type'] == 'video':
-                    msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + '>Link to Attached Video (May be Expired)</a>'
+                    msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + ' target="_blank">Link to Attached Video (May be Expired)</a>'
                 elif attachment['type'] == 'share':
                     if attachment['url'] is None:
                         msg['text'] = msg['text'] + ' Unavailable Attachment'
                     else:
-                        msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + '>Attached Link</a>'
+                        msg['text'] = msg['text'] + ' <a href=' + attachment['url'] + ' target="_blank">Attached Link</a>'
 
             # If there is still an empty body, then the message was a chat log
             if msg['text'] == '' and 'log_message_body' in message:
