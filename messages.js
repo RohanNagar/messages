@@ -62,7 +62,7 @@ $result_table.bootstrapTable({
 
 // Determines if a phrase exists in the given message
 function messageContains(message, phrase) {
-    return message.indexOf(phrase) > -1;
+    return message.toLowerCase().indexOf(phrase) > -1;
 }
 
 // Iterates through messages list and updates the table accordingly
