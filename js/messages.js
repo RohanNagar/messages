@@ -56,6 +56,8 @@ $result_table.bootstrapTable({
         field: 'text',
         title: 'Message'
     }],
+    pagination: true,
+    pageSize: 50,
     data: []
 });
 
