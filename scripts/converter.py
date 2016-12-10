@@ -2,7 +2,7 @@ import json
 import datetime
 
 # Constants
-path = 'raw_messages.json'
+path = '../data/raw_messages.json'
 first_author_id = 'fbid:609628589'
 first_author_name = 'Stephanie Tran'
 second_author_id = 'fbid:1399342159'

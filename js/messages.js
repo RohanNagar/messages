@@ -11,7 +11,7 @@ function setMessages(messages) {
 }
 
 // Load JSON from file
-$.getJSON("messages.json", function(json) {	
+$.getJSON("../data/messages.json", function(json) {	
     setMessages(json);
 });
 
